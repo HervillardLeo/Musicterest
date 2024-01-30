@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SongsController extends AbstractController
 {
+
     #[Route('/', name: 'app_home', methods: 'GET')]
     public function index(SongRepository $songRepository): Response
     {
@@ -57,11 +58,14 @@ class SongsController extends AbstractController
         return $this->render('songs/edit.html.twig', ['song' => $song, 'songEditForm' => $form->createView()]);
     }
 
-    #[Route('/songs/{id<\d+>}/delete', name: 'app_songs_delete', methods: 'GET')]
-    public function delete(Song $song, EntityManagerInterface $em): Response
+    #[Route('/songs/{id<\d+>}/delete', name: 'app_songs_delete', methods: 'GET|POST')]
+    public function delete(Song $song, Request $request, EntityManagerInterface $em): Response
     {
-        $em->remove($song);
-        $em->flush();
+        if ($this->isCsrfTokenValid('song_deletion_' . $song->getId(), $request->query->get('csrf_token'))) {
+            $em->remove($song);
+            $em->flush();
+        }
+
 
         return $this->redirectToRoute('app_home');
     }
