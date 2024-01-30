@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Song;
 use App\Repository\SongRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 
 class SongsController extends AbstractController
 {
@@ -14,5 +16,11 @@ class SongsController extends AbstractController
     {
         $songs = $songRepository->findAll();
         return $this->render('songs/index.html.twig', ['songs' => $songs]);
+    }
+
+    #[Route('/songs/{id<\d+>}', name: 'app_songs_show')]
+    public function show(Song $song): Response
+    {
+        return $this->render('songs/show.html.twig', ['song' => $song]);
     }
 }

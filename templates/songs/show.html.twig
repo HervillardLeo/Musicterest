@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ song.title ~ " - " ~ song.artist}}
+{% endblock %}
+
+{% block body %}
+	<article>
+		<h1>{{ song.title ~ " - " ~ song.artist}}</h1>
+		<p>{{ song.description }}</p>
+		<p>{{ song.link }}</p>
+	</article>
+
+	<a href="{{ path('app_home') }}">Revenir à l'écran d'accueil</a>
+{% endblock %}
