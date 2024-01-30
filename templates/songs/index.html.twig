@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Songterest
+{% endblock %}
+
+{% block body %}
+	<h1>{{ songs|length }}
+		Songs</h1>
+
+	{% for song in songs %}
+		<article>
+			<h2>{{ song.title ~ " - " ~ song.artist}}</h2>
+			<p>{{ song.description }}</p>
+			<p>{{ song.link }}</p>
+		</article>
+	{% endfor %}
+{% endblock %}
