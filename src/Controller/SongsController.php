@@ -39,6 +39,8 @@ class SongsController extends AbstractController
             $em->persist($song);
             $em->flush();
 
+            $this->addFlash('success', 'Song successfully added');
+
             return $this->redirectToRoute('app_home');
         }
         return $this->render('songs/create.html.twig', ['songAddForm' => $form->createView()]);
@@ -53,6 +55,7 @@ class SongsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
 
+            $this->addFlash('success', 'Song successfully updated');
             return $this->redirectToRoute('app_home');
         }
         return $this->render('songs/edit.html.twig', ['song' => $song, 'songEditForm' => $form->createView()]);
@@ -64,6 +67,7 @@ class SongsController extends AbstractController
         if ($this->isCsrfTokenValid('song_deletion_' . $song->getId(), $request->query->get('csrf_token'))) {
             $em->remove($song);
             $em->flush();
+            $this->addFlash('info', 'Song successfully deleted');
         }
 
 
