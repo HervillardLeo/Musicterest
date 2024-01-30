@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	New Song
+{% endblock %}
+
+{% block body %}
+	<h1>Add New Song</h1>
+
+	{{ form_start(songAddForm) }}
+	{{ form_widget(songAddForm) }}
+	<input type="submit" value="Add a new song">
+	{{ form_end(songAddForm) }}
+
+	<a href="{{ path('app_home') }}">Revenir à l'écran d' accueil</a>
+{% endblock %}

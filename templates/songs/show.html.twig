@@ -11,5 +11,7 @@
 		<p>{{ song.link }}</p>
 	</article>
 
+	<a href="{{ path('app_songs_edit', { id : song.id } )}}">Modifier</a>
+	|
 	<a href="{{ path('app_home') }}">Revenir à l'écran d'accueil</a>
 {% endblock %}

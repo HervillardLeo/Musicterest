@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Modify
+	{{ song.title ~ " - " ~ song.artist}}
+{% endblock %}
+
+{% block body %}
+	<h1>Modify
+		{{ song.title ~ " - " ~ song.artist}}</h1>
+
+	{{ form_start(songEditForm) }}
+	{{ form_widget(songEditForm) }}
+	<input type="submit" value="Update song">
+	{{ form_end(songEditForm) }}
+{% endblock %}
