@@ -9,7 +9,7 @@
 
 	{{ form_start(songAddForm) }}
 	{{ form_widget(songAddForm) }}
-	<input type="submit" value="Add a new song">
+	<input type="submit" value="Add a new song" formnovalidate>
 	{{ form_end(songAddForm) }}
 
 	<a href="{{ path('app_home') }}">Revenir à l'écran d' accueil</a>
