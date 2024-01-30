@@ -56,4 +56,13 @@ class SongsController extends AbstractController
         }
         return $this->render('songs/edit.html.twig', ['song' => $song, 'songEditForm' => $form->createView()]);
     }
+
+    #[Route('/songs/{id<\d+>}/delete', name: 'app_songs_delete', methods: 'GET')]
+    public function delete(Song $song, EntityManagerInterface $em): Response
+    {
+        $em->remove($song);
+        $em->flush();
+
+        return $this->redirectToRoute('app_home');
+    }
 }
