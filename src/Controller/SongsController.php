@@ -3,14 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Song;
+use App\Form\SongType;
 use App\Repository\SongRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 
 class SongsController extends AbstractController
@@ -32,12 +30,7 @@ class SongsController extends AbstractController
     public function create(Request $request, EntityManagerInterface $em): Response
     {
         $song = new Song;
-        $form = $this->createFormBuilder($song)
-            ->add('title', TextType::class)
-            ->add('artist', TextType::class)
-            ->add('description', TextareaType::class)
-            ->add('link', TextType::class)
-            ->getForm();
+        $form = $this->createForm(SongType::class, $song);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -53,12 +46,7 @@ class SongsController extends AbstractController
     #[Route('/songs/{id<\d+>}/edit', name: 'app_songs_edit', methods: 'GET|POST')]
     public function edit(Song $song, Request $request, EntityManagerInterface $em): Response
     {
-        $form = $this->createFormBuilder($song)
-            ->add('title', TextType::class)
-            ->add('artist', TextType::class)
-            ->add('description', TextareaType::class)
-            ->add('link', TextType::class)
-            ->getForm();
+        $form = $form = $this->createForm(SongType::class, $song);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
