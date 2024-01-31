@@ -4,14 +4,40 @@
 {% endblock %}
 
 {% block body %}
-	<h1>{{ songs|length }}
-		Musics</h1>
-
-	{% for song in songs %}
-		<article>
-			<h2>
-				<a href="{{ path('app_songs_show', {id:song.id})}}">{{ song.title ~ " - " ~ song.artist}}</a>
-			</h2>
-		</article>
-	{% endfor %}
+	{% if songs|length > 0 %}
+		<h1 class="mb-4 text-center text-muted">{{ songs|length }}
+			Musics</h1>
+		{% for row in songs|batch(3) %}
+			<div class="row mb-5">
+				{% for song in row %}
+					<div class="col-md-4">
+						<article class="song bg-white rounded shadow">
+							<div class="mw-100 overflow-hidden">
+								<a class="text-decoration-none" href="{{ path('app_songs_show', {id:song.id})}}">
+									<img class="w-100 rounded-top" src="{{ (song.imageName ? vich_uploader_asset(song) : asset('images/placeholder.png')) | imagine_filter('square_thumbnail_medium') }}" alt="{{ song.title ~ " - " ~ song.artist }}">
+								</a>
+							</div>
+							<h2 class="h5 ps-3 pt-3">
+								<a class="text-decoration-none text-muted text-secondary" href="{{ path('app_songs_show', {id:song.id})}}">
+									{{ song.title|length > 40 ? song.title|slice(0,40) ~ '...' : song.title  }}
+								</a>
+							</h2>
+							<h3 class="h6 ps-3 pt-1">
+								<a class="text-decoration-none text-muted text-secondary" href="{{ path('app_songs_show', {id:song.id})}}">
+									{{ song.artist }}
+								</a>
+							</h3>
+							<p class="ps-3 pb-3 text-muted">
+								<small>Submitted By Leo</small>
+							</p>
+						</article>
+					</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
+	{% else %}
+		<p class="text-center h1">No music yet.
+			<a href="{{ path('app_songs_create')}}">Be the first to add a Music !</a>
+		</p>
+	{% endif %}
 {% endblock %}
