@@ -18,7 +18,6 @@ class Song
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Assert\NotBlank]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -52,7 +51,7 @@ class Song
         return $this->title;
     }
 
-    public function setTitle(string $title): static
+    public function setTitle(?string $title): static
     {
         $this->title = $title;
 
@@ -64,7 +63,7 @@ class Song
         return $this->Artist;
     }
 
-    public function setArtist(string $Artist): static
+    public function setArtist(?string $Artist): static
     {
         $this->Artist = $Artist;
 
@@ -76,7 +75,7 @@ class Song
         return $this->Description;
     }
 
-    public function setDescription(string $Description): static
+    public function setDescription(?string $Description): static
     {
         $this->Description = $Description;
 
@@ -88,7 +87,7 @@ class Song
         return $this->Link;
     }
 
-    public function setLink(string $Link): static
+    public function setLink(?string $Link): static
     {
         $this->Link = $Link;
 

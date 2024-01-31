@@ -16,8 +16,6 @@
 	<a href="{{ path('app_songs_edit', { id : song.id } )}}">Update</a>
 	|
 	<a href="#" onclick="event.preventDefault();confirm('Vous allez supprimer {{ song.title ~ " - " ~ song.artist}}') && document.getElementById('js-song-delete-form').submit();">Delete</a>
-	|
-	<a href="{{ path('app_home') }}">Go back Home</a>
 
 	<form id="js-song-delete-form" action="{{ path('app_songs_delete', { id : song.id } )}}" style="display:none;">
 		<input type="hidden" name="csrf_token" value="{{csrf_token('song_deletion_' ~ song.id)}}">

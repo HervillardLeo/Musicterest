@@ -6,11 +6,17 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Modify
-		{{ song.title ~ " - " ~ song.artist}}</h1>
+	<div class="row">
+		<div class="col-md-6 mx-auto">
+			<h1>Modify
+				{{ song.title ~ " - " ~ song.artist}}</h1>
 
-	{{ form_start(songEditForm) }}
-	{{ form_widget(songEditForm) }}
-	<input type="submit" value="Update song" formnovalidate>
-	{{ form_end(songEditForm) }}
+			{{ form_start(songEditForm) }}
+			{{ form_widget(songEditForm) }}
+			<div class="d-grid gap-2">
+				<input type="submit" value="Update music" class="btn btn-primary" formnovalidate>
+			</div>
+			{{ form_end(songEditForm) }}
+		</div>
+	</div>
 {% endblock %}
