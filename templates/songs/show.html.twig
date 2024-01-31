@@ -5,19 +5,43 @@
 {% endblock %}
 
 {% block body %}
-	<article>
-		<h1>{{ song.title ~ " - " ~ song.artist}}</h1>
-		<p>{{ song.description }}</p>
-		<p>{{ song.link }}</p>
-		<p>Submitted
-			{{ song.createdAt|ago}}</p>
-	</article>
+	<div class="row">
+		<div class="col-md-6 mx-auto">
+			<article>
+				<article class="song bg-white rounded shadow">
+					<div class="mw-100 overflow-hidden">
+						<img class="w-100 rounded-top" src="{{ (song.imageName ? vich_uploader_asset(song) : asset('images/placeholder.png')) | imagine_filter('square_thumbnail_medium') }}" alt="{{ song.title ~ " - " ~ song.artist }}">
+					</div>
+					<h2 class="h5 ps-3 pt-3">
+						<a class="text-decoration-none text-muted text-secondary" href="{{ path('app_songs_show', {id:song.id})}}">
+							{{ song.title|length > 40 ? song.title|slice(0,40) ~ '...' : song.title  }}
+						</a>
+					</h2>
+					<h3 class="h6 ps-3 pt-1">
+						<a class="text-decoration-none text-muted text-secondary" href="{{ path('app_songs_show', {id:song.id})}}">
+							{{ song.artist }}
+						</a>
+					</h3>
+					<p class="ps-3 pb-3 text-muted">
+						<small>Submitted By Leo
+							<time datetime={{song.createdAt|date('Y-m-d H:m:s')}}>
+								{{ song.createdAt|ago}}</time>
+						</small>
+					</p>
+					<p class="ps-3 pb-3">{{ song.description }}</p>
+					<p class="ps-3 pb-3">
+						<a href="{{ song.link }}">{{ song.link }}</a>
+					</p>
+					<div class="ps-3 pb-3">
+						<a class="btn btn-light" href="{{ path('app_songs_edit', { id : song.id } )}}">Update</a>
+						<a href="#" class="btn btn-light" onclick="event.preventDefault();confirm('Vous allez supprimer {{ song.title ~ " - " ~ song.artist}}') && document.getElementById('js-song-delete-form').submit();">Delete</a>
+					</div>
+				</article>
+			</div>
+		</div>
 
-	<a href="{{ path('app_songs_edit', { id : song.id } )}}">Update</a>
-	|
-	<a href="#" onclick="event.preventDefault();confirm('Vous allez supprimer {{ song.title ~ " - " ~ song.artist}}') && document.getElementById('js-song-delete-form').submit();">Delete</a>
 
-	<form id="js-song-delete-form" action="{{ path('app_songs_delete', { id : song.id } )}}" style="display:none;">
-		<input type="hidden" name="csrf_token" value="{{csrf_token('song_deletion_' ~ song.id)}}">
-	</form>
-{% endblock %}
+		<form id="js-song-delete-form" action="{{ path('app_songs_delete', { id : song.id } )}}" style="display:none;">
+			<input type="hidden" name="csrf_token" value="{{csrf_token('song_deletion_' ~ song.id)}}">
+		</form>
+	{% endblock %}
