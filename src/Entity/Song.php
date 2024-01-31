@@ -47,6 +47,7 @@ class Song
     private ?string $imageName = null;
 
     #[Vich\UploadableField(mapping: 'song_image', fileNameProperty: 'imageName')]
+    #[Assert\Image(maxSize: "8M")]
     private ?File $imageFile = null;
 
 
