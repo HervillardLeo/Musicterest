@@ -7,10 +7,13 @@ use App\Repository\SongRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: SongRepository::class)]
 #[ORM\Table(name: "song")]
 #[ORM\HasLifecycleCallbacks]
+#[Vich\Uploadable]
 class Song
 {
     use Timestampable;
@@ -42,6 +45,9 @@ class Song
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageName = null;
+
+    #[Vich\UploadableField(mapping: 'song_image', fileNameProperty: 'imageName')]
+    private ?File $imageFile = null;
 
 
     public function getId(): ?int
@@ -107,5 +113,21 @@ class Song
         $this->imageName = $imageName;
 
         return $this;
+    }
+
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->setUpdatedAt(new \DateTimeImmutable());
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
     }
 }
