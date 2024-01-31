@@ -12,8 +12,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: SongRepository::class)]
 #[ORM\Table(name: "song")]
-#[ORM\HasLifecycleCallbacks]
 #[Vich\Uploadable]
+#[ORM\HasLifecycleCallbacks]
 class Song
 {
     use Timestampable;
