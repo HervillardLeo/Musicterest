@@ -9,8 +9,8 @@
 		<div class="col-md-6 mx-auto">
 			<article>
 				<article class="song bg-white rounded shadow">
-					<div class="mw-100 overflow-hidden">
-						<img class="w-100 rounded-top" src="{{ (song.imageName ? vich_uploader_asset(song) : asset('images/placeholder.png')) | imagine_filter('square_thumbnail_medium') }}" alt="{{ song.title ~ " - " ~ song.artist }}">
+					<div class="mw-100 overflow-hidden rounded-top">
+						<img class="w-100 " src="{{ (song.imageName ? vich_uploader_asset(song) : asset('images/placeholder.png')) | imagine_filter('square_thumbnail_medium') }}" alt="{{ song.title ~ " - " ~ song.artist }}">
 					</div>
 					<h2 class="h5 ps-3 pt-3">
 						<a class="text-decoration-none text-muted text-secondary" href="{{ path('app_songs_show', {id:song.id})}}">

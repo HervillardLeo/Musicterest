@@ -12,9 +12,9 @@
 				{% for song in row %}
 					<div class="col-md-4">
 						<article class="song bg-white rounded shadow">
-							<div class="mw-100 overflow-hidden">
+							<div class="mw-100 overflow-hidden rounded-top">
 								<a class="text-decoration-none" href="{{ path('app_songs_show', {id:song.id})}}">
-									<img class="w-100 rounded-top" src="{{ (song.imageName ? vich_uploader_asset(song) : asset('images/placeholder.png')) | imagine_filter('square_thumbnail_medium') }}" alt="{{ song.title ~ " - " ~ song.artist }}">
+									<img class="w-100" src="{{ (song.imageName ? vich_uploader_asset(song) : asset('images/placeholder.png')) | imagine_filter('square_thumbnail_medium') }}" alt="{{ song.title ~ " - " ~ song.artist }}">
 								</a>
 							</div>
 							<h2 class="h5 ps-3 pt-3">
