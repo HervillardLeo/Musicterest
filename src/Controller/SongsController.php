@@ -37,8 +37,7 @@ class SongsController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $u = $userRepo->findOneBy(['email' => 'jane@example.com']);
-            $song->setUser($u);
+            $song->setUser($this->getUser());
             $em->persist($song);
             $em->flush();
 
