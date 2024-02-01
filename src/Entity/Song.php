@@ -50,6 +50,10 @@ class Song
     #[Assert\Image(maxSize: "8M")]
     private ?File $imageFile = null;
 
+    #[ORM\ManyToOne(inversedBy: 'songs')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
 
     public function getId(): ?int
     {
@@ -130,5 +134,17 @@ class Song
     public function getImageFile(): ?File
     {
         return $this->imageFile;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }
