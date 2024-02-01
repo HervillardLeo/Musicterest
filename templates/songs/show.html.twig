@@ -23,7 +23,8 @@
 						</a>
 					</h3>
 					<p class="ps-3 pb-3 text-light">
-						<small>Submitted By Leo
+						<small>Submitted by
+							{{song.user.fullName}}
 							<time datetime={{song.createdAt|date('Y-m-d H:m:s')}}>
 								{{ song.createdAt|ago}}</time>
 						</small>
