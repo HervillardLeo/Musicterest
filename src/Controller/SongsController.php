@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Song;
 use App\Form\SongType;
 use App\Repository\SongRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +29,7 @@ class SongsController extends AbstractController
     }
 
     #[Route('/songs/create', name: 'app_songs_create', methods: 'GET|POST')]
-    public function create(Request $request, EntityManagerInterface $em): Response
+    public function create(Request $request, EntityManagerInterface $em, UserRepository $userRepo): Response
     {
         $song = new Song;
         $form = $this->createForm(SongType::class, $song);
@@ -36,6 +37,8 @@ class SongsController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $u = $userRepo->findOneBy(['email' => 'jane@example.com']);
+            $song->setUser($u);
             $em->persist($song);
             $em->flush();
 

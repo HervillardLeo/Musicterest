@@ -12,30 +12,28 @@
 					<div class="mw-100 overflow-hidden rounded-top">
 						<img class="w-100 " src="{{ (song.imageName ? vich_uploader_asset(song) : asset('images/placeholder.png')) | imagine_filter('square_thumbnail_medium') }}" alt="{{ song.title ~ " - " ~ song.artist }}">
 					</div>
-					<h2 class="h5 ps-3 pt-3">
-						<a class="text-decoration-none text-light text-secondary" href="{{ path('app_songs_show', {id:song.id})}}">
+					<div class="p-3">
+						<h2 class="h5 text-decoration-none text-light text-secondary">
 							{{ song.title|length > 40 ? song.title|slice(0,40) ~ '...' : song.title  }}
-						</a>
-					</h2>
-					<h3 class="h6 ps-3 pt-1">
-						<a class="text-decoration-none text-light text-secondary" href="{{ path('app_songs_show', {id:song.id})}}">
+						</h2>
+						<h3 class="h6 text-decoration-none text-light text-secondary">
 							{{ song.artist }}
-						</a>
-					</h3>
-					<p class="ps-3 pb-3 text-light">
-						<small>Submitted by
-							{{song.user.fullName}}
-							<time datetime={{song.createdAt|date('Y-m-d H:m:s')}}>
-								{{ song.createdAt|ago}}</time>
-						</small>
-					</p>
-					<p class="ps-3 pb-3 text-light">{{ song.description }}</p>
-					<p class="ps-3 pb-3">
-						<a href="{{ song.link }}">{{ song.link }}</a>
-					</p>
-					<div class="ps-3 pb-3">
-						<a class="btn btn-light" href="{{ path('app_songs_edit', { id : song.id } )}}">Update</a>
-						<a href="#" class="btn btn-light" onclick="event.preventDefault();confirm('Vous allez supprimer {{ song.title ~ " - " ~ song.artist}}') && document.getElementById('js-song-delete-form').submit();">Delete</a>
+						</h3>
+						<p class="text-light">
+							<small>Submitted by
+								{{song.user.fullName}}
+								<time datetime={{song.createdAt|date('Y-m-d H:m:s')}}>
+									{{ song.createdAt|ago}}</time>
+							</small>
+						</p>
+						<p class="text-light text-break pt-3">{{ song.description }}</p>
+						<p>
+							<a href="{{ song.link }}">{{ song.link }}</a>
+						</p>
+						<div class="pt-3">
+							<a class="btn btn-light" href="{{ path('app_songs_edit', { id : song.id } )}}">Update</a>
+							<a href="#" class="btn btn-light" onclick="event.preventDefault();confirm('Vous allez supprimer {{ song.title ~ " - " ~ song.artist}}') && document.getElementById('js-song-delete-form').submit();">Delete</a>
+						</div>
 					</div>
 				</article>
 			</div>
