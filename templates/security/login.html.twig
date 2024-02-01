@@ -4,13 +4,14 @@
 {% endblock %}
 
 {% block body %}
-	{% if error %}
-		<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-	{% endif %}
 	<div class="row">
 		<div class="col-md-6 mx-auto">
+			<h1 class="text-center mt-5 mb-3">Please sign in</h1>
+			<p class="text-muted text-center mb-5">Let's add some music !</p>
 			<form method="post">
-
+				{% if error %}
+					<div class="alert alert-danger rounded mb-3" role="alert">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+				{% endif %}
 				{% if app.user %}
 					<div class="mb-3">
 						You are logged in as
@@ -18,24 +19,34 @@
 						<a href="{{ path('app_logout') }}">Logout</a>
 					</div>
 				{% endif %}
-
-				<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-				<label for="email">Email</label>
-				<input type="email" value="{{ last_username }}" name="email" id="email" class="form-control" autocomplete="email" required autofocus>
-				<label for="password">Password</label>
-				<input type="password" name="password" id="password" class="form-control" autocomplete="current-password" required>
-
-				<label>
-					<input type="checkbox" name="_remember_me" checked>
-					Keep me logged in
-				</label>
+				<div class="form-group mb-3">
+					<label for="email">Email</label>
+					<input type="email" value="{{ last_username }}" name="email" id="email" class="form-control" autocomplete="email" required autofocus>
+				</div>
+				<div class="form-group mb-3">
+					<label for="password">Password</label>
+					<input type="password" name="password" id="password" class="form-control" autocomplete="current-password" required>
+				</div>
 				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-				<div class="text-center">
+				<div class="d-flex justify-content-between">
+					<div class="checkbox mb-3">
+						<label>
+							<input type="checkbox" name="_remember_me" checked>
+							Keep me logged in
+						</label>
+					</div>
+					<a href="#">Forgot Password ?</a>
+				</div>
+				<div class="d-grid gap-2">
 					<button class="m-3 btn btn-lg btn-dark" type="submit">
 						Sign in
 					</button>
 				</div>
 			</form>
+			<p class="mt-5 mb-3 text-center text-muted">Not registered yet ?
+				<a href="#">Create an account !</a>
+			</p>
+			<p></p>
 		</div>
 	</div>
 </div>{% endblock %}

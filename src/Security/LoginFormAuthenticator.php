@@ -48,6 +48,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
+        $request->getSession()->getFlashBag()->add('success', 'Logged in successfully !');
         return new RedirectResponse($this->urlGenerator->generate('app_home'));
     }
 
