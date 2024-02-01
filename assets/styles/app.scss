@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 @import 'shared/variables';
 
@@ -27,16 +27,20 @@ body {
     border-radius: 0;
 
     &.alert-success {
-        background-color: green;
+        background-color: #A1E5AB;
     }
 
     &.alert-error {
-        background-color: red;
+        background-color: #BA1200;
     }
 
     &.alert-info {
-        background-color: blue;
+        background-color: #4D7EA8;
     }
+}
+
+.song {
+    background-color: #121212;
 }
 
 .song img {

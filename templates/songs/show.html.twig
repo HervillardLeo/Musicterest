@@ -8,27 +8,27 @@
 	<div class="row">
 		<div class="col-md-6 mx-auto">
 			<article>
-				<article class="song bg-white rounded shadow">
+				<article class="song rounded shadow">
 					<div class="mw-100 overflow-hidden rounded-top">
 						<img class="w-100 " src="{{ (song.imageName ? vich_uploader_asset(song) : asset('images/placeholder.png')) | imagine_filter('square_thumbnail_medium') }}" alt="{{ song.title ~ " - " ~ song.artist }}">
 					</div>
 					<h2 class="h5 ps-3 pt-3">
-						<a class="text-decoration-none text-muted text-secondary" href="{{ path('app_songs_show', {id:song.id})}}">
+						<a class="text-decoration-none text-light text-secondary" href="{{ path('app_songs_show', {id:song.id})}}">
 							{{ song.title|length > 40 ? song.title|slice(0,40) ~ '...' : song.title  }}
 						</a>
 					</h2>
 					<h3 class="h6 ps-3 pt-1">
-						<a class="text-decoration-none text-muted text-secondary" href="{{ path('app_songs_show', {id:song.id})}}">
+						<a class="text-decoration-none text-light text-secondary" href="{{ path('app_songs_show', {id:song.id})}}">
 							{{ song.artist }}
 						</a>
 					</h3>
-					<p class="ps-3 pb-3 text-muted">
+					<p class="ps-3 pb-3 text-light">
 						<small>Submitted By Leo
 							<time datetime={{song.createdAt|date('Y-m-d H:m:s')}}>
 								{{ song.createdAt|ago}}</time>
 						</small>
 					</p>
-					<p class="ps-3 pb-3">{{ song.description }}</p>
+					<p class="ps-3 pb-3 text-light">{{ song.description }}</p>
 					<p class="ps-3 pb-3">
 						<a href="{{ song.link }}">{{ song.link }}</a>
 					</p>
