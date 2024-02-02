@@ -42,7 +42,7 @@ class AccountController extends AbstractController
     public function changePassword(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = $this->getUser();
-        $form = $this->createForm(ChangePasswordFormType::class);
+        $form = $this->createForm(ChangePasswordFormType::class, null, ['current_password_is_required' => true]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword($passwordHasher->hashPassword($user, $form['plainPassword']->getData()));
