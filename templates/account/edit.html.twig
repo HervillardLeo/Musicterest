@@ -1,0 +1,27 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}
+	Edit Profile
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-6 mx-auto">
+			<h1 class="my-5 text-center">Edit Profile</h1>
+			{{ form_start(form) }}
+			<div class="form-group mb-3">
+				<div class="d-flex justify-content-between">
+					<div class="p-2 flex-fill bd-highlight">{{ form_row(form.firstName) }}</div>
+					<div class="p-2 flex-fill bd-highlight">{{ form_row(form.lastName) }}</div>
+				</div>
+			</div>
+			<div class="form-group m-3">
+				{{ form_row(form.email) }}
+			</div>
+			<div class="d-grid gap-2">
+				<button class="m-3 btn btn-lg btn-dark" type="submit">Update</button>
+			</div>
+			{{ form_end(form) }}
+		</div>
+	</div>
+{% endblock %}
