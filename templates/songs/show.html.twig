@@ -27,20 +27,22 @@
 							</small>
 						</p>
 						<p class="text-light text-break pt-3">{{ song.description }}</p>
-						<p>
-							<a href="{{ song.link }}">{{ song.link }}</a>
-						</p>
-						<div class="pt-3">
-							<a class="btn btn-light" href="{{ path('app_songs_edit', { id : song.id } )}}">Update</a>
-							<a href="#" class="btn btn-light" onclick="event.preventDefault();confirm('Vous allez supprimer {{ song.title ~ " - " ~ song.artist}}') && document.getElementById('js-song-delete-form').submit();">Delete</a>
-						</div>
+						{% if app.user == song.user %}
+							<p>
+								<a href="{{ song.link }}">{{ song.link }}</a>
+							</p>
+							<div class="pt-3">
+								<a class="btn btn-light" href="{{ path('app_songs_edit', { id : song.id } )}}">Update</a>
+								<a href="#" class="btn btn-light" onclick="event.preventDefault();confirm('Vous allez supprimer {{ song.title ~ " - " ~ song.artist}}') && document.getElementById('js-song-delete-form').submit();">Delete</a>
+							</div>
+							<form id="js-song-delete-form" action="{{ path('app_songs_delete', { id : song.id } )}}" style="display:none;">
+								<input type="hidden" name="csrf_token" value="{{csrf_token('song_deletion_' ~ song.id)}}">
+							</form>
+						{% endif %}
 					</div>
 				</article>
 			</div>
 		</div>
 
 
-		<form id="js-song-delete-form" action="{{ path('app_songs_delete', { id : song.id } )}}" style="display:none;">
-			<input type="hidden" name="csrf_token" value="{{csrf_token('song_deletion_' ~ song.id)}}">
-		</form>
 	{% endblock %}

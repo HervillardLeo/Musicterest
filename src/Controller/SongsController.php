@@ -31,6 +31,10 @@ class SongsController extends AbstractController
     #[Route('/songs/create', name: 'app_songs_create', methods: 'GET|POST')]
     public function create(Request $request, EntityManagerInterface $em, UserRepository $userRepo): Response
     {
+        if (!$this->getUser()) {
+            $this->addFlash('error', 'You need to log in first');
+            return $this->redirectToRoute('app_login');
+        }
         $song = new Song;
         $form = $this->createForm(SongType::class, $song);
 
@@ -51,6 +55,15 @@ class SongsController extends AbstractController
     #[Route('/songs/{id<\d+>}/edit', name: 'app_songs_edit', methods: 'GET|POST')]
     public function edit(Song $song, Request $request, EntityManagerInterface $em): Response
     {
+        if (!$this->getUser()) {
+            $this->addFlash('error', 'You need to log in first');
+            return $this->redirectToRoute('app_login');
+        }
+        if ($song->getUser() != $this->getUser()) {
+            $this->addFlash('error', 'Access Forbidden');
+            return $this->redirectToRoute('app_home');
+        }
+
         $form = $form = $this->createForm(SongType::class, $song);
 
         $form->handleRequest($request);
@@ -66,6 +79,15 @@ class SongsController extends AbstractController
     #[Route('/songs/{id<\d+>}/delete', name: 'app_songs_delete', methods: 'GET|POST')]
     public function delete(Song $song, Request $request, EntityManagerInterface $em): Response
     {
+        if (!$this->getUser()) {
+            $this->addFlash('error', 'You need to log in first');
+            return $this->redirectToRoute('app_login');
+        }
+        if ($song->getUser() != $this->getUser()) {
+            $this->addFlash('error', 'Access Forbidden');
+            return $this->redirectToRoute('app_home');
+        }
+
         if ($this->isCsrfTokenValid('song_deletion_' . $song->getId(), $request->query->get('csrf_token'))) {
             $em->remove($song);
             $em->flush();

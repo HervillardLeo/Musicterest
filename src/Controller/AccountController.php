@@ -16,6 +16,10 @@ class AccountController extends AbstractController
     #[Route('/account', name: 'app_account')]
     public function show(): Response
     {
+        if (!$this->getUser()) {
+            $this->addFlash('error', 'You need to log in first');
+            return $this->redirectToRoute('app_login');
+        }
         return $this->render('account/show.html.twig', [
             'controller_name' => 'AccountController',
         ]);
@@ -24,6 +28,10 @@ class AccountController extends AbstractController
     #[Route('/account/edit', name: 'app_account_edit')]
     public function edit(Request $request, EntityManagerInterface $em): Response
     {
+        if (!$this->getUser()) {
+            $this->addFlash('error', 'You need to log in first');
+            return $this->redirectToRoute('app_login');
+        }
         $user = $this->getUser();
         $form = $this->createForm(UserFormType::class, $user);
         $form->handleRequest($request);
@@ -41,6 +49,10 @@ class AccountController extends AbstractController
     #[Route('/account/change-password', name: 'app_account_change_password')]
     public function changePassword(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): Response
     {
+        if (!$this->getUser()) {
+            $this->addFlash('error', 'You need to log in first');
+            return $this->redirectToRoute('app_login');
+        }
         $user = $this->getUser();
         $form = $this->createForm(ChangePasswordFormType::class, null, ['current_password_is_required' => true]);
         $form->handleRequest($request);
