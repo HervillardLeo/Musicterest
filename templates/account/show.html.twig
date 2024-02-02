@@ -1,0 +1,21 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}
+	Profile
+{% endblock %}
+
+{% block body %}
+
+	<div class="row">
+		<div class="col-md-6 mx-auto text-center">
+			<h1 class="my-5">Profile</h1>
+			<img class="mb-5 rounded-circle shadow" src="https://www.gravatar.com/avatar/{{app.user.getGravatar}}/?s=100" alt "{{app.user.getFullName}}'s Avatar">
+			<p class="lead">{{app.user.email}}</p>
+			<p class="h2">{{app.user.getFullName}}</p>
+			<div class="pt-3">
+				<a class="btn btn-dark" href="">Edit</a>
+				<a href="#" class="btn btn-dark">Change Password</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}

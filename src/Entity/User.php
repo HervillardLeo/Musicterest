@@ -181,6 +181,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->getFirstName() . ' ' . $this->getLastName();
     }
 
+    public function getGravatar(): string
+    {
+        return md5(strtolower(trim($this->getEmail())));
+    }
+
     public function isVerified(): bool
     {
         return $this->isVerified;
