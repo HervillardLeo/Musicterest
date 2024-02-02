@@ -13,35 +13,39 @@
 				<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
 			{% endfor %}
 			{% if app.user %}
-				<div class="mb-3">
+				<div class="text-center mb-3">
 					You are logged in as
 					{{ app.user.userIdentifier }},
 					<a href="{{ path('app_logout') }}">Logout</a>
 				</div>
-			{% endif %}
 
-			{{ form_errors(registrationForm) }}
+			{% else %}
+				{{ form_errors(registrationForm) }}
 
-			{{ form_start(registrationForm) }}
-			<div class="form-group mb-3">
-				<div class="d-flex justify-content-between">
-					<div class="p-2 flex-fill bd-highlight">{{ form_row(registrationForm.firstName) }}</div>
-					<div class="p-2 flex-fill bd-highlight">{{ form_row(registrationForm.lastName) }}</div>
+				{{ form_start(registrationForm) }}
+				<div class="form-group mb-3">
+					<div class="d-flex justify-content-between">
+						<div class="p-2 flex-fill bd-highlight">{{ form_row(registrationForm.firstName) }}</div>
+						<div class="p-2 flex-fill bd-highlight">{{ form_row(registrationForm.lastName) }}</div>
+					</div>
 				</div>
-			</div>
-			<div class="form-group m-3">
-				{{ form_row(registrationForm.email) }}
-			</div>
-			<div class="form-group m-3">
-				{{ form_row(registrationForm.plainPassword, {
+				<div class="form-group m-3">
+					{{ form_row(registrationForm.email) }}
+				</div>
+				<div class="form-group m-3">
+					{{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
-			</div>
-			<div class="checkbox m-3">
-				{{ form_row(registrationForm.agreeTerms) }}
-			</div>
-			<div class="d-grid gap-2">
-				<button class="m-3 btn btn-lg btn-dark" type="submit">Register</button>
-			</div>
-			{{ form_end(registrationForm) }}
+				</div>
+				<div class="checkbox m-3">
+					{{ form_row(registrationForm.agreeTerms) }}
+				</div>
+				<div class="d-grid gap-2">
+					<button class="m-3 btn btn-lg btn-dark" type="submit">Register</button>
+				</div>
+				{{ form_end(registrationForm) }}
+				<p class="mt-5 mb-3 text-center text-muted">Already have an account ?
+					<a href="{{path('app_login')}}">Log in !</a>
+				</p>
+			{% endif %}
 		{% endblock %}
