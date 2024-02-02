@@ -1,0 +1,47 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}Register
+{% endblock %}
+
+{% block body %}
+
+	<div class="row">
+		<div class="col-md-6 mx-auto">
+			<h1 class="text-center mt-5 mb-3">Please register</h1>
+			<p class="text-muted text-center mb-5">Let's add some music !</p>
+			{% for flash_error in app.flashes('verify_email_error') %}
+				<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+			{% endfor %}
+			{% if app.user %}
+				<div class="mb-3">
+					You are logged in as
+					{{ app.user.userIdentifier }},
+					<a href="{{ path('app_logout') }}">Logout</a>
+				</div>
+			{% endif %}
+
+			{{ form_errors(registrationForm) }}
+
+			{{ form_start(registrationForm) }}
+			<div class="form-group mb-3">
+				<div class="d-flex justify-content-between">
+					<div class="p-2 flex-fill bd-highlight">{{ form_row(registrationForm.firstName) }}</div>
+					<div class="p-2 flex-fill bd-highlight">{{ form_row(registrationForm.lastName) }}</div>
+				</div>
+			</div>
+			<div class="form-group m-3">
+				{{ form_row(registrationForm.email) }}
+			</div>
+			<div class="form-group m-3">
+				{{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+			</div>
+			<div class="checkbox m-3">
+				{{ form_row(registrationForm.agreeTerms) }}
+			</div>
+			<div class="d-grid gap-2">
+				<button class="m-3 btn btn-lg btn-dark" type="submit">Register</button>
+			</div>
+			{{ form_end(registrationForm) }}
+		{% endblock %}
